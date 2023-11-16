@@ -1,7 +1,6 @@
 from flask import Flask, render_template, Response
 import cv2
 import FaceDetector as detector
-
 app=Flask(__name__)
 camera = cv2.VideoCapture(0)
 
