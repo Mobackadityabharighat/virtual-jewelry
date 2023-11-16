@@ -1,0 +1,4 @@
+flask
+opencv-python
+dlib
+face Recognition
