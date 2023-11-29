@@ -12,8 +12,8 @@ def index():
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(detector.PlaceObject("alok1.png"), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(detector.PlaceObject("alok1.png", camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__=='__main__':
     # app.run(debug=True)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)

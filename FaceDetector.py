@@ -12,23 +12,23 @@ def init():
     return camera
 
 
-def PlaceObject(imgName):
+def PlaceObject(imgName, camera):
 
-    camera = cv2.VideoCapture(0)
+    # camera = cv2.VideoCapture(0)
     jewel_img = cv2.imread("Images/"+imgName)
-    if (camera.isOpened is False):
-        print("Unable to open Camera")
-        sys.exit()
+    # if (camera.isOpened is False):
+    #     print("Unable to open Camera")
+    #     sys.exit()
 
-    fps = 30.0
-    ret, im = camera.read()
-
-    if(ret == True):
-        height = im.shape[0]
-        RESIZE_SCALE = float(height)/RESIZE_HEIGHT
-        size = im.shape[0:2]
-    else:
-        print("Unable to read Frame")
+    # fps = 30.0
+    # ret, im = camera.read()
+    # 
+    # if(ret == True):
+    #     height = im.shape[0]
+    #     RESIZE_SCALE = float(height)/RESIZE_HEIGHT
+    #     size = im.shape[0:2]
+    # else:
+    #     print("Unable to read Frame")
 
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(PREDICTOR_PATH)
@@ -81,12 +81,12 @@ def PlaceObject(imgName):
                     if (im[y:y + final_jewel.shape[0], x:x + final_jewel.shape[1]].shape == final_jewel.shape):
                          frame[y:y + final_jewel.shape[0], x:x + final_jewel.shape[1]] = final_jewel
 
-                key = cv2.waitKey(1) & 0xFF
-                print(key)
-                if key ==  cv2.WINDOW_NORMAL:  # ESC
-                    print("Escaped")
-                    # If ESC is pressed, exit.
-                    sys.exit()
+                # key = cv2.waitKey(1) & 0xFF
+                # print(key)
+                # if key ==  cv2.WINDOW_NORMAL:  # ESC
+                #     print("Escaped")
+                #     # If ESC is pressed, exit.
+                #     sys.exit()
 
                 ret, buffer = cv2.imencode('.jpg', frame)
                 frame = buffer.tobytes()
@@ -103,10 +103,12 @@ def PlaceObject(imgName):
 
 
 
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
         frame.release()
 
 
 
     except Exception as e:
         print(e)
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + str(e) + b'\r\n')
