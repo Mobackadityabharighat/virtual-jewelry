@@ -1,50 +1,9 @@
-<!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <div class="btn-group"
-       role="group"
-       aria-label="Basic example">
-    <button type="button"
-            class="btn btn-primary">Left</button>
-    <button type="button"
-            class="btn btn-primary">Middle</button>
-    <button type="button"
-            class="btn btn-primary">Right</button>
-  </div>
-</head>
-
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8  offset-lg-2">
-        <h3 class="mt-5">Live Streaming</h3>
-        <img src="{{ url_for('video_feed') }}"
-             width="50%">
-      </div>
-    </div>
-  </div>
-  <script>
-    // JavaScript for accessing camera
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-          var video = document.getElementById('cameraFeed');
-          video.srcObject = stream;
-          video.onloadedmetadata = function (e) {
-            video.play();
-          };
-        })
-        .catch(function (err) {
-          console.error("Error accessing the camera: " + err);
-        });
-    } else {
-      console.error("getUserMedia not supported by this browser.");
-    }
-  </script>
-</body>
-
-
+  <head>
+    <title>Video Streaming Demonstration</title>
+  </head>
+  <body>
+    <h1>Video Streaming Demonstration</h1>
+    <img src="{{ url_for('video_feed') }}">
+  </body>
 </html>
