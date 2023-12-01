@@ -77,7 +77,7 @@ def PlaceObject(imgName, camera):
                     masked_jewel_area = cv2.bitwise_and(jewel_area, jewel_area, mask=jewel_mask)
                     final_jewel = cv2.add(masked_jewel_area, jewel_imgResized)
 
-                    if (im[y:y + final_jewel.shape[0], x:x + final_jewel.shape[1]].shape == final_jewel.shape):
+                    if (frame[y:y + final_jewel.shape[0], x:x + final_jewel.shape[1]].shape == final_jewel.shape):
                          frame[y:y + final_jewel.shape[0], x:x + final_jewel.shape[1]] = final_jewel
 
                 # key = cv2.waitKey(1) & 0xFF
