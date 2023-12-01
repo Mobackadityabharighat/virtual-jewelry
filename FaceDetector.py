@@ -21,14 +21,14 @@ def PlaceObject(imgName, camera):
     #     sys.exit()
 
     # fps = 30.0
-    # ret, im = camera.read()
-    # 
-    # if(ret == True):
-    #     height = im.shape[0]
-    #     RESIZE_SCALE = float(height)/RESIZE_HEIGHT
-    #     size = im.shape[0:2]
-    # else:
-    #     print("Unable to read Frame")
+    ret, im = camera.read()
+
+    if(ret == True):
+        height = im.shape[0]
+        RESIZE_SCALE = float(height)/RESIZE_HEIGHT
+        size = im.shape[0:2]
+    else:
+        print("Unable to read Frame")
 
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(PREDICTOR_PATH)
