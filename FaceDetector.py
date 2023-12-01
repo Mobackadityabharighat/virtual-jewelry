@@ -26,7 +26,6 @@ def PlaceObject(imgName, camera):
     if(ret == True):
         height = im.shape[0]
         RESIZE_SCALE = float(height)/RESIZE_HEIGHT
-        size = im.shape[0:2]
     else:
         print("Unable to read Frame")
 
@@ -110,5 +109,5 @@ def PlaceObject(imgName, camera):
 
     except Exception as e:
         print(e)
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + str(e) + b'\r\n')
+        # yield (b'--frame\r\n'
+        #        b'Content-Type: image/jpeg\r\n\r\n' + str(e) + b'\r\n')
