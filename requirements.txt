@@ -1,0 +1,10 @@
+flask
+opencv-python
+dlib
+face Recognition
+
+
+#socketio
+#sockets
+#pickle5
+#supyr-struct
