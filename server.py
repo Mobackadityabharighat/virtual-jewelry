@@ -41,6 +41,7 @@ payload_size = struct.calcsize(">L")
 print("payload_size: {}".format(payload_size))
 
 jewel_img = cv2.imread("Images/alok2.png")
+#jewel_img = cv2.imread("Images/alok2.png")
 
 while True:
     while len(data) < payload_size:
