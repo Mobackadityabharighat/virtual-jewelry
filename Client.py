@@ -5,7 +5,7 @@ import pickle
 import imutils
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('192.168.5.128', 8485))  # Replace with your server's IP and port
+client_socket.connect(('127.0.0.1', 8485))  # Replace with your server's IP and port
 
 cam = cv2.VideoCapture(0)
 img_counter = 0

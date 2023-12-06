@@ -4,8 +4,8 @@ import sys
 
 class NecklaceAugumentation:
     def __init__(self):
-        self.PREDICTOR_PATH = "../../Python Practice/ServerProgramWithAugumentation/models/shape_predictor_68_face_landmarks.dat"
-        self.jewel_img = cv2.imread("../../Python Practice/ServerProgramWithAugumentation/Images/alok2.png")
+        self.PREDICTOR_PATH = "./models/shape_predictor_68_face_landmarks.dat"
+        self.jewel_img = cv2.imread("./Images/alok2.png")
         self.RESIZE_HEIGHT = 480
         #self.SKIP_FRAMES = 2
         self.detector = dlib.get_frontal_face_detector()
