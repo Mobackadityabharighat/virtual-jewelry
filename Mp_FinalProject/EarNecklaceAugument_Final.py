@@ -1,3 +1,4 @@
+import imutils
 import numpy as np
 import cv2
 import mediapipe as mp
@@ -202,6 +203,7 @@ class Augumentation:
         drawing_spec = mp_drawing.DrawingSpec(color=(128,0,128),thickness=2,circle_radius=1)
         cap = cv2.VideoCapture(0)
         success, frame = cap.read()
+        frame = imutils.resize(frame, width=1024, height=720)
         w, h = frame.shape[:2]
         detector = pm.PoseDetector(False, 1, True, True)
         # earringName = "earring3.png"
