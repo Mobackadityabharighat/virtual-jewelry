@@ -100,42 +100,49 @@ class Augumentation:
 
     def augment_earring(self,frame, piercing_points, earringName, face_landmarks, ear_side, y_rotation, drawPoints = False):
         earring = cv2.imread('Images/' + earringName, cv2.IMREAD_UNCHANGED)
-
         if earring is None:
             print("Error: Earring image not found.")
             return
 
         # Extract piercing points
         x1, y1 = piercing_points
-       # calDist =70 + (self.CalculateDistance(face_landmarks,frame))*60000000
+        # calDist =70 + (CalculateDistance(face_landmarks,frame))*10000000
         calDist = (self.CalculateDistance(face_landmarks, frame)) * 60000000
-        print(np.abs(calDist))
-        w = np.abs(calDist)
+
+        w = np.abs(calDist * .009)
+        # print(w)
 
         if drawPoints:
             cv2.circle(frame, (x1, y1), 5, (255, 255, 0), cv2.FILLED)
 
         # Resize the earring based on the distance between piercing points
-        width = int(w*1.5)
-        height = int(  width*1.5)
+        # width = int(w*1.2)
+        # height = int(  width)
 
-        if width > 0:
-            earring_resized = cv2.resize(earring, (width, height), interpolation=cv2.INTER_AREA)
+        scale_factor = 0.10 * w  # Adjust this value based on your preference
+        print(scale_factor)
+        earring_size = int(scale_factor * frame.shape[1])
 
-            # Calculate the position to place the earring
-            '''int(calDist/2)is to adjust the postion on moving to or away from camera'''
-            if ear_side == "LEFT":
-                x_1 = int(x1-y_rotation*1.8)-int(calDist/2.5)
-                y_1 = y1-int(calDist/8)
-                self.overlay_earring(frame, earring_resized, (x_1, y_1))
-            else:
-                x_1 = int(x1 -(y_rotation*1.8)) - int(calDist/2)# 40*1.8
-                y_1 = (y1)-int(calDist/5) #20
-                self.overlay_earring(frame, earring_resized, (x_1, y_1))
+        # Resize the earring
+        earring_resized = cv2.resize(earring, (earring_size, int(earring_size * 1.3)), interpolation=cv2.INTER_AREA)
 
+        # if width > 0:
+        #     earring_resized = cv2.resize(earring, (width, height), interpolation=cv2.INTER_AREA)
 
+        # Calculate the position to place the earring
+        '''int(calDist/2)is to adjust the postion on moving to or away from camera'''
+        if ear_side == "LEFT":
+            x_1 = x1 - int(earring_size / 2) - int(y_rotation * 1.2) + int(calDist * .12)
+            y_1 = y1 - int(calDist * .12)
+            self.overlay_earring(frame, earring_resized, (x_1, y_1))
 
-
+        else:
+            x_1 = x1 - int(earring_size / 2) - int(y_rotation * 1.2) + int(calDist * .12)
+            y_1 = y1 - int(calDist * .12)
+            self.overlay_earring(frame, earring_resized, (x_1, y_1))
+            # x_1 = int(x1 -(y_rotation*1.8)) - int(calDist/2)# 40*1.8
+            # y_1 = (y1)-int(calDist*.12) #20
+            # overlay(frame, earring_resized, (x_1, y_1))
 
     def overlay_earring(self,background, overlay, position1, position2=None):
 
@@ -210,6 +217,7 @@ class Augumentation:
         can_draw = False
         while cap.isOpened():
             success, frame = cap.read()
+            frame = imutils.resize(frame, width=1024, height=720)
             start = time.time()
             frame = cv2.cvtColor(cv2.flip(frame, 1), cv2.COLOR_BGR2RGB)
             '''shoulders'''
@@ -241,7 +249,7 @@ class Augumentation:
                             text="Looking Right"
                         elif x < -10:
                             text="Looking Down"
-                        elif x > 10:
+                        elif x > 12:
                             text="Looking Up"
                         else:
                             text="Forward"
